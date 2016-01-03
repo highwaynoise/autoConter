@@ -11,7 +11,7 @@ MidiOut mout;
 MidiIn min;
 
 mout.open(0);
-min.open(1);
+min.open(2);
 
 
 
@@ -88,6 +88,7 @@ while(true)
 {
     // wait on midi event
     min => now;
+    sync-now % sync =>now;
 
     // receive midimsg(s)
     while( min.recv( m_inmsg ) )
@@ -110,7 +111,7 @@ fun void on_midi_in(int msg_code,int msg_pitch,int velocity)
 
     now + 8::second=>time later;
     0=>int i;     
-    msg_pitch % 7 => int offset;
+    (msg_pitch % 9) => int offset;
 
     while(now<later)
     {
@@ -130,6 +131,8 @@ fun void on_midi_in(int msg_code,int msg_pitch,int velocity)
         mout.send(msg);
 
         80::ms=>now;
+
+        (i+1)%7 => i;
     }
 }
 
@@ -156,5 +159,7 @@ fun void sec(int num,int offset,int isBass,int chn)
         mout.send(msg);
 
         80::ms=>now;
+
+        (i+1)%num => i;
     }
 }
