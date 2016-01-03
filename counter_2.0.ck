@@ -74,10 +74,7 @@ Math.random2(0,7) => int off2;
 
 spork ~sec(num1,off1,1,0);
 spork ~sec(num2,off2,0,1);
-while(true)
-{
-8::second=>now;
-}
+while(true) { 1::second=>now; }
 
 
 fun void sec(int num,int offset,int isBass,int chn)
@@ -102,5 +99,7 @@ fun void sec(int num,int offset,int isBass,int chn)
         mout.send(msg);
         
         80::ms=>now;
+
+        (i+1) % num => i;
     }
 }
